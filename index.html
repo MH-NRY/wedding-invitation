@@ -504,10 +504,76 @@
         border-radius: 18px;
       }
     }
+
+      /* =========================
+   INTRO OVERLAY EFFECT
+========================= */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(to bottom, #f8f6f2, #e9e3d9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  transition: opacity 1s ease, visibility 1s ease;
+}
+
+.intro-overlay.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.intro-content {
+  text-align: center;
+  animation: fadeUp 1.2s ease;
+}
+
+.intro-content h2 {
+  font-family: "Great Vibes", cursive;
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.intro-content p {
+  letter-spacing: 3px;
+  margin-bottom: 25px;
+  color: var(--muted);
+}
+
+.intro-content button {
+  padding: 12px 30px;
+  border-radius: 30px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  font-size: 14px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.intro-content button:hover {
+  transform: scale(1.05);
+}
+
+@keyframes fadeUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
   </style>
 </head>
 
 <body>
+
+  <!-- INTRO OVERLAY -->
+<div class="intro-overlay" id="introOverlay">
+  <div class="intro-content">
+    <h2>You're Invited</h2>
+    <p>Reshell & Mhanry</p>
+    <button id="openInviteBtn">Open Invitation</button>
+  </div>
+</div>
 
   <!-- NAVBAR -->
   <nav>
@@ -1114,8 +1180,24 @@ window.addEventListener("load", () => {
   setupLightbox();
 });
 
+    // =========================
+// INTRO OVERLAY SCRIPT
+// =========================
+window.addEventListener("load", () => {
+  const overlay = document.getElementById("introOverlay");
+  const btn = document.getElementById("openInviteBtn");
+
+  // Prevent scroll while intro is open
+  document.body.style.overflow = "hidden";
+
+  btn.addEventListener("click", () => {
+    overlay.classList.add("hide");
+    document.body.style.overflow = "auto";
+  });
+});
 
 
   </script>
 </body>
 </html>
+
